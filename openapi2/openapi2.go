@@ -9,6 +9,13 @@ import (
 	"github.com/getkin/kin-openapi/openapi3"
 )
 
+type SchemaRef struct {
+	Type       string
+	Properties Schemas
+}
+
+type Schemas map[string]*SchemaRef
+
 // T is the root of an OpenAPI v2 document
 type T struct {
 	openapi3.ExtensionProps
@@ -20,7 +27,7 @@ type T struct {
 	Host                string                         `json:"host,omitempty"`
 	BasePath            string                         `json:"basePath,omitempty"`
 	Paths               map[string]*PathItem           `json:"paths,omitempty"`
-	Definitions         map[string]*openapi3.SchemaRef `json:"definitions,omitempty,noref"`
+	Definitions         map[string]*SchemaRef          `json:"definitions,omitempty,noref"`
 	Parameters          map[string]*Parameter          `json:"parameters,omitempty,noref"`
 	Responses           map[string]*Response           `json:"responses,omitempty,noref"`
 	SecurityDefinitions map[string]*SecurityScheme     `json:"securityDefinitions,omitempty"`
